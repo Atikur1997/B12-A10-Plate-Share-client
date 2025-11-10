@@ -1,6 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router';
+
 
 const Navbar = () => {
+
+    const links = <>
+        <NavLink to='/' className='mr-10 cursor-pointer merriweather'>Home</NavLink>
+        <NavLink to='/avaiable_foods' className='mr-10 cursor-pointer merriweather'>Available foods</NavLink>
+    </>
     return (
         <div>
             <div className="navbar bg-base-100 shadow-sm">
@@ -12,36 +19,28 @@ const Navbar = () => {
                         <ul
                             tabIndex="-1"
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li><a>Item 1</a></li>
-                            <li>
-                                <a>Parent</a>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Item 3</a></li>
+                            {
+                                links
+                            }
                         </ul>
                     </div>
                     <a className="btn btn-ghost text-xl">daisyUI</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <details>
-                                <summary>Parent</summary>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li><a>Item 3</a></li>
+                        {
+                            links
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Button</a>
+                    <NavLink to='/login'>
+
+                        <button class="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg border-blue-600
+border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] merriweather">
+                            Log-In
+                        </button>
+                    </NavLink>
                 </div>
             </div>
         </div>
