@@ -5,6 +5,7 @@ import ErrorPage from "../ErrorPage/ErrorPage";
 import Login from "../Login/Login";
 import AvailableFoods from "../AvailableFoods/AvailableFoods";
 import Register from "../Pages/Register/Register";
+import Loader from "../Loader/Loader";
 
 
 export const router = createBrowserRouter([
@@ -15,7 +16,11 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: Home
+                loader: () => fetch('http://localhost:5000/home_foods'),
+                Component: Home,
+                hydrateFallbackElement: <Loader></Loader>
+
+
             },
             {
                 path: "/login",

@@ -1,13 +1,18 @@
-import React from 'react';
-import './Login.css'; // for animations
-import { NavLink } from 'react-router';
+import React from "react";
+import { NavLink } from "react-router";
+import { FcGoogle } from "react-icons/fc"; // Google icon
+import "./Login.css"; // animations if you have them
 
 const Login = () => {
+
+    const handleGoogleSignIn = () => {
+        console.log("Google Sign-In Clicked");
+
+    };
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-800">
-            <div
-                className="max-w-md w-full bg-gradient-to-r from-blue-800 to-purple-600 rounded-xl shadow-2xl overflow-hidden p-8 space-y-8 animate-slideInFromLeft"
-            >
+            <div className="max-w-md w-full bg-gradient-to-r from-blue-800 to-purple-600 rounded-xl shadow-2xl overflow-hidden p-8 space-y-8 animate-slideInFromLeft">
                 <h2 className="text-center text-4xl font-extrabold text-white animate-appear">
                     Welcome
                 </h2>
@@ -71,9 +76,25 @@ const Login = () => {
                     </button>
                 </form>
 
+                {/* 🔹 OR divider */}
+                <div className="flex items-center justify-center text-gray-300 my-4">
+                    <span className="border-t border-gray-400 w-1/5"></span>
+                    <span className="mx-3 text-sm">OR</span>
+                    <span className="border-t border-gray-400 w-1/5"></span>
+                </div>
+
+                {/* 🔹 Google Sign-In Button */}
+                <button
+                    onClick={handleGoogleSignIn}
+                    className="flex items-center justify-center gap-3 w-full py-2 px-4 bg-white rounded-md shadow-md hover:bg-gray-100 transition duration-200"
+                >
+                    <FcGoogle size={22} />
+                    <span className="text-gray-700 font-semibold">Sign in with Google</span>
+                </button>
+
                 <div className="text-center text-gray-300">
-                    Don't have an account?{" "}
-                    <NavLink to='/signup' className="text-purple-300 hover:underline">
+                    Don’t have an account?{" "}
+                    <NavLink to="/signup" className="text-purple-300 hover:underline">
                         Sign up
                     </NavLink>
                 </div>

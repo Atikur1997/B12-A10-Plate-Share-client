@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import "./Register.css"; // animations
+import { NavLink } from "react-router";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +69,7 @@ const Register = () => {
                         <input
                             id="photo"
                             name="photo"
-                            type="text"
+                            type="url"
                             placeholder="Photo URL"
                             className="peer h-10 w-full border-b-2 border-gray-300 text-white bg-transparent placeholder-transparent focus:outline-none focus:border-purple-400"
                         />
@@ -149,9 +150,9 @@ const Register = () => {
 
                 <div className="text-center text-gray-300">
                     Already have an account?{" "}
-                    <a href="#" className="text-purple-300 hover:underline">
+                    <NavLink to="/login" href="#" className="text-purple-300 hover:underline">
                         Sign in
-                    </a>
+                    </NavLink>
                 </div>
             </div>
         </div>
