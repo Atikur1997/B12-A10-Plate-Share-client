@@ -9,8 +9,8 @@ const Navbar = () => {
         <NavLink to='/avaiable_foods' className='mr-10 cursor-pointer merriweather'>Available foods</NavLink>
     </>
     return (
-        <div>
-            <div className="navbar bg-base-100 shadow-sm">
+        <div className='max-w-[1200px] mx-auto '>
+            <div className="navbar bg-base-100 shadow-sm rounded-3xl">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

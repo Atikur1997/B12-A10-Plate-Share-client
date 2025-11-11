@@ -3,7 +3,7 @@ import banner from '../../assets/banner.png';
 
 const Banner = ({ searchTerm, setSearchTerm }) => {
     return (
-        <div className="bg-[linear-gradient(135deg,#34d399,#a3e635,#f97316)] w-full relative rounded-3xl">
+        <div className="bg-[linear-gradient(135deg,#34d399,#a3e635,#f97316)] w-full relative rounded-3xl max-w-[1200px] mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-center px-10 md:px-20 py-10">
 
 
