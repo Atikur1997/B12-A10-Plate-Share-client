@@ -3,7 +3,7 @@ import { NavLink } from 'react-router';
 import styled from 'styled-components';
 import { AuthContext } from '../Provider/AuthProvider';
 
-const Card = ({ donatorName, expireDate, foodImage, foodName, foodQuantity, pickupLocation, category }) => {
+const Card = ({ _id, donatorName, expireDate, foodImage, foodName, foodQuantity, pickupLocation, category }) => {
     const userdata = use(AuthContext)
     const { user } = userdata
     return (
@@ -50,7 +50,7 @@ const Card = ({ donatorName, expireDate, foodImage, foodName, foodQuantity, pick
                                     <p className='text-sm'><strong>Pickup Location: {pickupLocation}</strong></p>
                                 </div>
                                 <p className="card-footer">
-                                    <NavLink> <button className='btn btn-outline btn-success'>View Details....</button></NavLink>
+                                    <NavLink to={`/food_details/${_id}`}> <button className='btn btn-outline btn-success'>View Details....</button></NavLink>
                                 </p>
                             </div>
                         </div>
