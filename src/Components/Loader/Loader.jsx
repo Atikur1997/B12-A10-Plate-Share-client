@@ -2,25 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Loader = () => {
-    return (
-        <StyledWrapper>
-            <div className="pl">
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__dot" />
-                <div className="pl__text">Loading…</div>
-            </div>
-        </StyledWrapper>
-    );
+  return (
+    <StyledWrapper>
+      <div className='flex justify-center items-center'>
+        <div className="pl">
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__dot" />
+          <div className="pl__text">Loading…</div>
+        </div>
+      </div>
+    </StyledWrapper>
+  );
 }
 
 const StyledWrapper = styled.div`
