@@ -13,7 +13,8 @@ const AddFood = () => {
         pickupLocation: '',
         expireDate: '',
         notes: '',
-        category: ''
+        category: '',
+        serves: '' // <-- Added serves field
     });
 
     const handleChange = e => {
@@ -48,7 +49,8 @@ const AddFood = () => {
                     pickupLocation: '',
                     expireDate: '',
                     notes: '',
-                    category: ''
+                    category: '',
+                    serves: '' // <-- reset serves
                 });
             } else {
                 toast.error('❌ Failed to add food');
@@ -78,7 +80,6 @@ const AddFood = () => {
                 animate={{ x: [0, 60, -60, 0], y: [0, -40, 40, 0] }}
                 transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
             />
-
 
             <motion.div
                 className="relative z-10 bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl p-8 w-full max-w-2xl border border-white/50"
@@ -123,6 +124,20 @@ const AddFood = () => {
                         </select>
                     </div>
 
+                    {/* Serves */}
+                    <div>
+                        <label className="block mb-1 text-gray-700 font-semibold">Serves</label>
+                        <input
+                            type="text"
+                            name="serves"
+                            value={foodData.serves}
+                            onChange={handleChange}
+                            placeholder="e.g., Serves 2 people"
+                            required
+                            className="input input-bordered w-full rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none"
+                        />
+                    </div>
+
                     {/* Image URL */}
                     <div>
                         <label className="block mb-1 text-gray-700 font-semibold">Food Image URL</label>
@@ -151,7 +166,7 @@ const AddFood = () => {
                         <input
                             type="text"
                             name="foodQuantity"
-                            placeholder="e.g., Serves 2 people"
+                            placeholder="e.g., 3 boxes / 2 kg"
                             value={foodData.foodQuantity}
                             onChange={handleChange}
                             required
@@ -221,7 +236,7 @@ const AddFood = () => {
                     </motion.button>
                 </form>
             </motion.div>
-            <ToastContainer></ToastContainer>
+            <ToastContainer />
         </div>
     );
 };

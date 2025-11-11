@@ -10,6 +10,7 @@ const ManageFood = () => {
     const [loading, setLoading] = useState(true);
     const [editingFood, setEditingFood] = useState(null);
 
+    // Fetch foods added by the logged-in user
     const fetchUserFoods = async () => {
         try {
             const res = await fetch('http://localhost:5000/available_foods');
@@ -30,6 +31,7 @@ const ManageFood = () => {
         }
     }, [user]);
 
+    // Delete a food
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this food?')) return;
         try {
@@ -46,11 +48,13 @@ const ManageFood = () => {
         }
     };
 
+    // Handle input changes in modal
     const handleEditChange = (e) => {
         const { name, value } = e.target;
         setEditingFood(prev => ({ ...prev, [name]: value }));
     };
 
+    // Update food
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
@@ -88,6 +92,7 @@ const ManageFood = () => {
                                 <th className="border p-2">#</th>
                                 <th className="border p-2">Food Name</th>
                                 <th className="border p-2">Category</th>
+                                <th className="border p-2">Serves</th>
                                 <th className="border p-2">Quantity</th>
                                 <th className="border p-2">Expire Date</th>
                                 <th className="border p-2">Actions</th>
@@ -99,6 +104,7 @@ const ManageFood = () => {
                                     <td className="border p-2">{index + 1}</td>
                                     <td className="border p-2">{food.foodName}</td>
                                     <td className="border p-2">{food.category}</td>
+                                    <td className="border p-2">{food.serves}</td>
                                     <td className="border p-2">{food.foodQuantity}</td>
                                     <td className="border p-2">{food.expireDate}</td>
                                     <td className="border p-2 flex justify-center gap-2">
@@ -133,6 +139,7 @@ const ManageFood = () => {
                     >
                         <h3 className="text-xl font-bold mb-4 text-center">Update Food</h3>
                         <form onSubmit={handleUpdate} className="space-y-3">
+                            {/* Food Name */}
                             <input
                                 type="text"
                                 name="foodName"
@@ -159,6 +166,18 @@ const ManageFood = () => {
                                 <option value="Dairy">Dairy</option>
                             </select>
 
+                            {/* Serves */}
+                            <input
+                                type="text"
+                                name="serves"
+                                value={editingFood.serves || ''}
+                                onChange={handleEditChange}
+                                className="input input-bordered w-full"
+                                placeholder="Serves e.g., 2 people"
+                                required
+                            />
+
+                            {/* Quantity */}
                             <input
                                 type="text"
                                 name="foodQuantity"
@@ -168,6 +187,8 @@ const ManageFood = () => {
                                 placeholder="Quantity"
                                 required
                             />
+
+                            {/* Expire Date */}
                             <input
                                 type="date"
                                 name="expireDate"
@@ -176,6 +197,7 @@ const ManageFood = () => {
                                 className="input input-bordered w-full"
                                 required
                             />
+
                             <div className="flex justify-end gap-2 mt-3">
                                 <button
                                     type="button"
