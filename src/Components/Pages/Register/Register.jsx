@@ -1,16 +1,66 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import "./Register.css"; // animations
 import { NavLink } from "react-router";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const { user, createUser, setUser } = use(AuthContext)
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirm = form.confirm.value;
+        const photoUrl = form.photo.value;
+
+        if (password !== confirm) {
+            toast("Passwords do not match", {
+                type: "error",
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "dark",
+            })
+            return
+        }
         // handle sign-up logic here
+        createUser(email, password)
+            .then(() => {
+                toast("User created successfully", {
+                    type: "success",
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "dark",
+                })
+                setUser({ name, email })
+            })
+            .catch((error) => {
+                toast(error.message, {
+                    type: "error",
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "dark",
+                })
+            })
+
     };
 
     const handleGoogleSignUp = () => {
@@ -31,7 +81,7 @@ const Register = () => {
                     {/* Name */}
                     <div className="relative">
                         <input
-                            id="name"
+
                             name="name"
                             type="text"
                             placeholder="Your name"
@@ -40,7 +90,7 @@ const Register = () => {
                         />
                         <label
                             htmlFor="name"
-                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm"
+                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm my-2.5"
                         >
                             Full Name
                         </label>
@@ -49,7 +99,7 @@ const Register = () => {
                     {/* Email */}
                     <div className="relative">
                         <input
-                            id="email"
+
                             name="email"
                             type="email"
                             placeholder="you@example.com"
@@ -58,7 +108,7 @@ const Register = () => {
                         />
                         <label
                             htmlFor="email"
-                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm"
+                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm my-2.5"
                         >
                             Email
                         </label>
@@ -67,7 +117,7 @@ const Register = () => {
                     {/* Photo URL */}
                     <div className="relative">
                         <input
-                            id="photo"
+
                             name="photo"
                             type="url"
                             placeholder="Photo URL"
@@ -75,7 +125,7 @@ const Register = () => {
                         />
                         <label
                             htmlFor="photo"
-                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm"
+                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm my-2.5"
                         >
                             Photo URL
                         </label>
@@ -84,7 +134,7 @@ const Register = () => {
                     {/* Password */}
                     <div className="relative">
                         <input
-                            id="password"
+
                             name="password"
                             type={showPassword ? "text" : "password"}
                             placeholder="Password"
@@ -93,7 +143,7 @@ const Register = () => {
                         />
                         <label
                             htmlFor="password"
-                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm"
+                            className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm my-2.5"
                         >
                             Password
                         </label>
@@ -108,7 +158,7 @@ const Register = () => {
                     {/* Confirm Password */}
                     <div className="relative">
                         <input
-                            id="confirm"
+
                             name="confirm"
                             type={showConfirm ? "text" : "password"}
                             placeholder="Confirm Password"
@@ -155,6 +205,7 @@ const Register = () => {
                     </NavLink>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

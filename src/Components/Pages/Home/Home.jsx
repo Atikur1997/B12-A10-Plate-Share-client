@@ -7,7 +7,7 @@ const Home = () => {
     console.log(foods);
     return (
         <div className=''>
-
+            
         </div>
     );
 };
