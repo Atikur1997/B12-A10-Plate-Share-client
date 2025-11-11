@@ -1,9 +1,21 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOutUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+
+    const handleLogout = () => {
+        logOutUser()
+            .then(() => {
+                navigate('/login');
+            })
+            .catch((error) => {
+                console.error('Logout failed:', error.message);
+            });
+    };
 
     const links = (
         <>
@@ -48,7 +60,6 @@ const Navbar = () => {
                                 </div>
                             </label>
 
-                            {/* Dropdown Menu */}
                             <ul
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-56 p-3 shadow space-y-1"
@@ -61,29 +72,16 @@ const Navbar = () => {
                                 </li>
                                 <div className="divider my-1"></div>
 
-                                {/* Private Links */}
-                                <li>
-                                    <NavLink to="/add_food" className="hover:bg-gray-100 rounded-lg">
-                                        🍽 Add Food
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/manage_my_foods" className="hover:bg-gray-100 rounded-lg">
-                                        📦 Manage My Foods
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/my_food_requests" className="hover:bg-gray-100 rounded-lg">
-                                        📋 My Food Requests
-                                    </NavLink>
-                                </li>
+                                <li><NavLink to="/add_food">🍽 Add Food</NavLink></li>
+                                <li><NavLink to="/manage_my_foods">📦 Manage My Foods</NavLink></li>
+                                <li><NavLink to="/my_food_requests">📋 My Food Requests</NavLink></li>
 
                                 <div className="divider my-1"></div>
 
-                                {/* Logout */}
+
                                 <li>
                                     <button
-                                        onClick={logOut}
+                                        onClick={handleLogout}
                                         className="btn btn-error btn-sm text-white w-full mt-1"
                                     >
                                         Logout
