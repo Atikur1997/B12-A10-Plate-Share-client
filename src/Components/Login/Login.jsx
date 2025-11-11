@@ -3,7 +3,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { NavLink, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer, } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
@@ -141,7 +141,7 @@ const Login = () => {
                     </NavLink>
                 </div>
 
-                <ToastContainer />
+                <ToastContainer></ToastContainer>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AddFood = () => {
     const { user } = useContext(AuthContext);
@@ -12,35 +12,13 @@ const AddFood = () => {
         foodQuantity: '',
         pickupLocation: '',
         expireDate: '',
-        notes: ''
+        notes: '',
+        category: ''
     });
 
     const handleChange = e => {
         const { name, value } = e.target;
         setFoodData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleImageUpload = async (e) => {
-        const image = e.target.files[0];
-        if (!image) return;
-
-        const formData = new FormData();
-        formData.append('image', image);
-
-        try {
-            setLoading(true);
-            const res = await fetch(`https://api.imgbb.com/1/upload?key=YOUR_IMGBB_API_KEY`, {
-                method: 'POST',
-                body: formData
-            });
-            const data = await res.json();
-            setFoodData(prev => ({ ...prev, foodImage: data.data.url }));
-            toast.success('🎉 Image uploaded successfully!');
-        } catch (err) {
-            toast.error('❌ Failed to upload image');
-        } finally {
-            setLoading(false);
-        }
     };
 
     const handleSubmit = async (e) => {
@@ -69,7 +47,8 @@ const AddFood = () => {
                     foodQuantity: '',
                     pickupLocation: '',
                     expireDate: '',
-                    notes: ''
+                    notes: '',
+                    category: ''
                 });
             } else {
                 toast.error('❌ Failed to add food');
@@ -83,7 +62,7 @@ const AddFood = () => {
 
     return (
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-100 via-blue-50 to-purple-100 max-w-[1200px] mx-auto rounded-3xl">
-            {/* 🌈 Animated Gradient Orbs */}
+
             <motion.div
                 className="absolute w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
                 animate={{ x: [0, 50, -50, 0], y: [0, 30, -30, 0] }}
@@ -100,9 +79,9 @@ const AddFood = () => {
                 transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            {/* 🌟 Form Card */}
+
             <motion.div
-                className="relative z-10 bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl p-8 w-full max-w-2xl border border-white/50  "
+                className="relative z-10 bg-white/80 backdrop-blur-lg shadow-2xl rounded-3xl p-8 w-full max-w-2xl border border-white/50"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8 }}
@@ -125,14 +104,35 @@ const AddFood = () => {
                         />
                     </motion.div>
 
-                    {/* Image Upload */}
+                    {/* Category */}
                     <div>
-                        <label className="block mb-1 text-gray-700 font-semibold">Food Image</label>
+                        <label className="block mb-1 text-gray-700 font-semibold">Category</label>
+                        <select
+                            name="category"
+                            value={foodData.category}
+                            onChange={handleChange}
+                            required
+                            className="input input-bordered w-full rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+                        >
+                            <option value="">Select a category</option>
+                            <option value="Fruits">Fruits</option>
+                            <option value="Vegetable">Vegetable</option>
+                            <option value="Bakery">Bakery</option>
+                            <option value="Beverage">Beverage</option>
+                            <option value="Dairy">Dairy</option>
+                        </select>
+                    </div>
+
+                    {/* Image URL */}
+                    <div>
+                        <label className="block mb-1 text-gray-700 font-semibold">Food Image URL</label>
                         <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageUpload}
-                            className="file-input file-input-bordered w-full"
+                            type="url"
+                            name="foodImage"
+                            value={foodData.foodImage}
+                            onChange={handleChange}
+                            placeholder="Enter image URL"
+                            className="input input-bordered w-full rounded-lg focus:ring-2 focus:ring-pink-400 focus:outline-none"
                         />
                         {foodData.foodImage && (
                             <motion.img
@@ -221,6 +221,7 @@ const AddFood = () => {
                     </motion.button>
                 </form>
             </motion.div>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };
