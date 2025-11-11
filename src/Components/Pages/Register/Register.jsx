@@ -180,19 +180,27 @@ const Register = () => {
                     </div>
 
                     {/* Submit Button */}
-                    <button
-                        type="submit"
-                        className="w-full py-2 px-4 bg-purple-500 hover:bg-purple-700 rounded-md shadow-lg text-white font-semibold transition duration-200"
-                    >
-                        Sign Up
-                    </button>
-
+                    <NavLink to={user ? "/" : "/register"}>
+                        <button
+                            type="submit"
+                            className="w-full py-2 px-4 bg-purple-500 hover:bg-purple-700 rounded-md shadow-lg text-white font-semibold transition duration-200"
+                        >
+                            Sign Up
+                        </button>
+                    </NavLink>
+                    {/* 🔹 OR divider */}
+                    <div className="flex items-center justify-center text-gray-300 my-4">
+                        <span className="border-t border-gray-400 w-1/5"></span>
+                        <span className="mx-3 text-sm">OR</span>
+                        <span className="border-t border-gray-400 w-1/5"></span>
+                    </div>
                     {/* Google Sign Up */}
                     <button
                         type="button"
                         onClick={handleGoogleSignUp}
                         className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-white rounded-md shadow-lg text-gray-700 font-semibold hover:bg-gray-100 transition duration-200"
                     >
+
                         <FcGoogle size={22} />
                         Sign Up with Google
                     </button>
