@@ -1,14 +1,16 @@
 import React, { useContext, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-    const { createUser, updateUser } = useContext(AuthContext);
+    const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,27 +27,31 @@ const Register = () => {
         }
 
         createUser(email, password)
+            .then(() => updateUser({ displayName: name, photoURL: photoUrl || null }))
             .then(() => {
-
-                updateUser({
-                    displayName: name,
-                    photoURL: photoUrl || null,
-                })
-                    .then(() => {
-                        toast.success("User registered successfully!");
-                        form.reset();
-                    })
-                    .catch((error) => toast.error(error.message));
+                toast.success("User registered successfully!");
+                form.reset();
+                navigate("/");
             })
             .catch((error) => toast.error(error.message));
-        navigate('/')
+    };
+
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then((result) => {
+                const user = result.user;
+                toast.success(`Welcome ${user.displayName || "User"}!`);
+                navigate("/");
+            })
+            .catch((error) => toast.error(error.message));
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-md bg-gray-800 p-8 rounded-xl shadow-lg text-white"
+                className="w-full max-w-md bg-gray-800 p-8 rounded-xl shadow-lg text-white space-y-6"
             >
                 <h2 className="text-2xl font-bold mb-6 text-center text-orange-400">
                     Create an Account
@@ -53,72 +59,48 @@ const Register = () => {
 
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-1">Full Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        required
-                        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    />
+                    <input type="text" name="name" required className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
                 </div>
 
                 <div className="mb-4">
                     <label className="block text-gray-300 mb-1">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        required
-                        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    />
+                    <input type="email" name="email" required className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
                 </div>
 
                 <div className="mb-4 relative">
                     <label className="block text-gray-300 mb-1">Password</label>
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        required
-                        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    />
-                    <span
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-9 cursor-pointer text-gray-400"
-                    >
-                        {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                    </span>
+                    <input type={showPassword ? "text" : "password"} name="password" required className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-9 cursor-pointer text-gray-400">{showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}</span>
                 </div>
 
                 <div className="mb-4 relative">
                     <label className="block text-gray-300 mb-1">Confirm Password</label>
-                    <input
-                        type={showConfirm ? "text" : "password"}
-                        name="confirm"
-                        required
-                        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    />
-                    <span
-                        onClick={() => setShowConfirm(!showConfirm)}
-                        className="absolute right-3 top-9 cursor-pointer text-gray-400"
-                    >
-                        {showConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                    </span>
+                    <input type={showConfirm ? "text" : "password"} name="confirm" required className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    <span onClick={() => setShowConfirm(!showConfirm)} className="absolute right-3 top-9 cursor-pointer text-gray-400">{showConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}</span>
                 </div>
 
                 <div className="mb-6">
                     <label className="block text-gray-300 mb-1">Photo URL (optional)</label>
-                    <input
-                        type="text"
-                        name="photo"
-                        className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    />
+                    <input type="text" name="photo" className="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
                 </div>
 
-                <button
-                    type="submit"
-                    className="w-full py-3 bg-purple-500 hover:bg-purple-700 rounded-lg font-semibold transition duration-200"
-                >
+                <button type="submit" className="w-full py-3 bg-purple-500 hover:bg-purple-700 rounded-lg font-semibold transition duration-200">
                     Sign Up
                 </button>
+
+                <div className="flex items-center justify-center text-gray-300 my-4">
+                    <span className="border-t border-gray-400 w-1/5"></span>
+                    <span className="mx-3 text-sm">OR</span>
+                    <span className="border-t border-gray-400 w-1/5"></span>
+                </div>
+
+                <button type="button" onClick={handleGoogleSignIn} className="flex items-center justify-center gap-3 w-full py-2 px-4 bg-white rounded-md shadow-md hover:bg-gray-100 transition duration-200">
+                    <FcGoogle size={22} />
+                    <span className="text-gray-700 font-semibold cursor-pointer">Sign Up with Google</span>
+                </button>
             </form>
+
+            <ToastContainer />
         </div>
     );
 };
