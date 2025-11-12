@@ -20,7 +20,7 @@ const Navbar = () => {
     const links = (
         <>
             <NavLink to='/' className='mr-10 cursor-pointer merriweather'>Home</NavLink>
-            <NavLink to='//available_foods' className='mr-10 cursor-pointer merriweather'>Available Foods</NavLink>
+            <NavLink to='/available_foods' className='mr-10 cursor-pointer merriweather'>Available Foods</NavLink>
         </>
     );
 
