@@ -28,7 +28,7 @@ const Home = () => {
                     ))}
                 </div>
 
-                <NavLink className="w-full flex justify-center" to="/avaiable_foods">
+                <NavLink className="w-full flex justify-center" to="/available_foods">
                     <button className="btn btn-outline btn-success md:w-[700px] mt-3">
                         Show All Foods..
                     </button>

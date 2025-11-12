@@ -1,16 +1,15 @@
-import React, { use, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
+import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { toast, ToastContainer, } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../Provider/AuthProvider";
 import "./Login.css";
 
 const Login = () => {
-    const user_data = use(AuthContext);
-    const { logInUSer } = user_data;
-    const navigation = useNavigate();
+    const { logInUSer } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const handleLogIn = (e) => {
@@ -21,13 +20,20 @@ const Login = () => {
 
         logInUSer(email, password)
             .then((result) => {
-                console.log(result.user);
+                const user = result.user;
+                console.log(user);
+
+                // store user for loader
+                localStorage.setItem("currentUser", JSON.stringify(user));
+
                 toast("Login Successful", {
                     type: "success",
                     position: "top-center",
                     autoClose: 3000,
                 });
-                navigation("/");
+
+                // Navigate to my_food_requests after login
+                navigate("/");
             })
             .catch((error) => {
                 console.error(error);
@@ -53,7 +59,6 @@ const Login = () => {
                     Sign in to your account
                 </p>
 
-
                 <form className="space-y-6" onSubmit={handleLogIn}>
                     {/* Email Field */}
                     <div className="relative">
@@ -69,7 +74,7 @@ const Login = () => {
                         </label>
                     </div>
 
-
+                    {/* Password Field */}
                     <div className="relative">
                         <input
                             name="password"
@@ -81,20 +86,15 @@ const Login = () => {
                         <label className="absolute left-0 -top-3.5 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-purple-400 peer-focus:text-sm">
                             Password
                         </label>
-
                         <div
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-purple-300 cursor-pointer"
                         >
-                            {showPassword ? (
-                                <AiOutlineEyeInvisible size={22} />
-                            ) : (
-                                <AiOutlineEye size={22} />
-                            )}
+                            {showPassword ? <AiOutlineEyeInvisible size={22} /> : <AiOutlineEye size={22} />}
                         </div>
                     </div>
 
-
+                    {/* Remember & Forgot */}
                     <div className="flex items-center justify-between">
                         <label className="flex items-center text-sm text-gray-200">
                             <input
@@ -108,7 +108,7 @@ const Login = () => {
                         </a>
                     </div>
 
-
+                    {/* Submit */}
                     <button
                         type="submit"
                         className="w-full py-2 px-4 bg-purple-500 hover:bg-purple-700 rounded-md shadow-lg text-white font-semibold transition duration-200"
@@ -141,7 +141,7 @@ const Login = () => {
                     </NavLink>
                 </div>
 
-                <ToastContainer></ToastContainer>
+                <ToastContainer />
             </div>
         </div>
     );

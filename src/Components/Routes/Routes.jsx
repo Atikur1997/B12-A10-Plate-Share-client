@@ -12,6 +12,9 @@ import FoodRequest from "../Pages/FoodRequest/FoodRequest";
 import PrivateRoute from "../Provider/PrivateRoute";
 import Loader from "../Loader/Loader";
 
+
+
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -85,6 +88,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/my_food_requests",
+                loader: async () => {
+
+                    const user = JSON.parse(localStorage.getItem("currentUser"));
+
+
+                    const res = await fetch(`http://localhost:5000/food_requests?email=${user.email}`);
+
+                    return res.json();
+                },
                 element: (
                     <PrivateRoute>
                         <FoodRequest />

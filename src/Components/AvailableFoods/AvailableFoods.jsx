@@ -9,7 +9,7 @@ const AvailableFoods = () => {
     const foods = useLoaderData();
     const [searchTerm, setSearchTerm] = useState('');
 
-    // 🔍 Filter foods by search term
+    
     const filteredFoods = foods.filter((food) =>
         food.foodName.toLowerCase().includes(searchTerm.toLowerCase())
     );
