@@ -3,71 +3,94 @@ import Root from "../Root/Root";
 import Home from "../Pages/Home/Home";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Login from "../Login/Login";
-import AvailableFoods from "../AvailableFoods/AvailableFoods";
 import Register from "../Pages/Register/Register";
-import Loader from "../Loader/Loader";
+import AvailableFoods from "../AvailableFoods/AvailableFoods";
 import FoodDetails from "../Pages/FoodDetails/FoodDetails";
-import PrivateRoute from "../Provider/PrivateRoute";
 import AddFood from "../Pages/AddFood/AddFood";
 import ManageFood from "../Pages/ManageFood/ManageFood";
 import FoodRequest from "../Pages/FoodRequest/FoodRequest";
-
+import PrivateRoute from "../Provider/PrivateRoute";
+import Loader from "../Loader/Loader";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        Component: Root,
+        element: <Root />,
         errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
-                loader: () => fetch('http://localhost:5000/home_foods'),
-                Component: Home,
-                hydrateFallbackElement: <Loader></Loader>
-
-
+                loader: async () => {
+                    const res = await fetch("http://localhost:5000/home_foods");
+                    if (!res.ok)
+                        throw new Response("Failed to load home foods", {
+                            status: res.status,
+                        });
+                    return res.json();
+                },
+                element: <Home />,
+                hydrateFallbackElement: <Loader />,
             },
             {
                 path: "/login",
-                Component: Login,
+                element: <Login />,
             },
             {
-                path: '/signup',
-                Component: Register,
-
-            },
-
-            {
-                path: '/available_foods',
-                loader: () => fetch('http://localhost:5000/available_foods'),
-                Component: AvailableFoods,
+                path: "/signup",
+                element: <Register />,
             },
             {
-                path: '/food_details/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/available_foods/${params.id}`),
-                element: <PrivateRoute>
-                    <FoodDetails></FoodDetails>
-                </PrivateRoute>,
+                path: "/available_foods",
+                loader: async () => {
+                    const res = await fetch("http://localhost:5000/available_foods");
+                    if (!res.ok)
+                        throw new Response("Failed to load available foods", {
+                            status: res.status,
+                        });
+                    return res.json();
+                },
+                element: <AvailableFoods />,
             },
             {
-                path: '/add_food',
-                element: <PrivateRoute>
-                    <AddFood></AddFood>
-                </PrivateRoute>,
+                path: "/food_details/:id",
+                loader: async ({ params }) => {
+                    const res = await fetch(
+                        `http://localhost:5000/available_foods/${params.id}`
+                    );
+                    if (!res.ok)
+                        throw new Response("Food not found", { status: res.status });
+                    return res.json();
+                },
+                element: (
+                    <PrivateRoute>
+                        <FoodDetails />
+                    </PrivateRoute>
+                ),
             },
             {
-                path: '/manage_my_foods',
-                element: <PrivateRoute>
-                    <ManageFood></ManageFood>
-                </PrivateRoute>
+                path: "/add_food",
+                element: (
+                    <PrivateRoute>
+                        <AddFood />
+                    </PrivateRoute>
+                ),
             },
             {
-                path: '/my_food_requests',
-                element: <PrivateRoute>
-                    <FoodRequest></FoodRequest>
-                </PrivateRoute>
-            }
-
-        ]
-    }
+                path: "/manage_my_foods",
+                element: (
+                    <PrivateRoute>
+                        <ManageFood />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "/my_food_requests",
+                element: (
+                    <PrivateRoute>
+                        <FoodRequest />
+                    </PrivateRoute>
+                ),
+            },
+        ],
+    },
 ]);
