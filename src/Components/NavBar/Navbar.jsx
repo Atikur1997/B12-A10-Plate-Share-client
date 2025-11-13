@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthProvider';
 
+
 const Navbar = () => {
     const { user, logOutUser } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -39,7 +40,9 @@ const Navbar = () => {
                             {links}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">FoodShare</a>
+                    <NavLink to='/' className="btn btn-ghost text-xl">
+                        FoodShare
+                    </NavLink>
                 </div>
 
                 <div className="navbar-center hidden lg:flex">
