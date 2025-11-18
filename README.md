@@ -1,16 +1,81 @@
-# React + Vite
+# 🍽 Plate Share Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-19.2.0-blue?logo=react&logoColor=white)](https://reactjs.org/) 
+[![Vite](https://img.shields.io/badge/Vite-7.2.2-yellow?logo=vite&logoColor=white)](https://vitejs.dev/) 
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.17-blue?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Firebase](https://img.shields.io/badge/Firebase-12.5.0-orange?logo=firebase&logoColor=white)](https://firebase.google.com/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-Currently, two official plugins are available:
+**Plate Share Client** is a modern web application built with **React** and **Vite**, designed to create a seamless and interactive user experience for sharing meals, recipes, or dining experiences with others.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p align="center">
+  <img src="https://via.placeholder.com/800x400.png?text=Plate+Share+Client+Screenshot" alt="Plate Share Client Screenshot" width="80%"/>
+</p>
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 Technologies Used
+- **React 19** – Frontend library for building UI components  
+- **Vite** – Fast development build tool  
+- **TailwindCSS 4** – Utility-first CSS framework  
+- **DaisyUI** – Tailwind component library  
+- **Styled-Components** – For styled React components  
+- **Framer Motion** – For animations  
+- **Firebase** – Backend & real-time database  
+- **React Router** – Routing management  
+- **React Icons** – Icon library  
+- **React Toastify** – Notification system  
+- **Lenis** – Smooth scrolling library  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ⚡ Features
+- User-friendly, interactive UI with smooth animations  
+- Authentication and database integration with Firebase  
+- Toast notifications for instant feedback  
+- Fully responsive design  
+- Modular component structure for easier maintenance  
+- Dark mode support (via Tailwind + DaisyUI)  
+
+---
+
+## 📦 Dependencies
+### Main Dependencies:
+- `react`, `react-dom`  
+- `react-router`  
+- `firebase`  
+- `framer-motion`  
+- `styled-components`  
+- `tailwindcss`  
+- `daisyui`  
+- `@studio-freight/lenis`  
+- `react-icons`  
+- `react-toastify`  
+
+### Dev Dependencies:
+- `vite`, `@vitejs/plugin-react`  
+- `eslint`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`  
+- `@types/react`, `@types/react-dom`  
+- `@eslint/js`, `globals`  
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18+)  
+- npm or yarn  
+
+### Installation & Running Locally
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/plate-share-client.git
+
+# Navigate to project directory
+cd plate-share-client
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
